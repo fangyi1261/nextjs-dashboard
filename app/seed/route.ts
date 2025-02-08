@@ -1,8 +1,18 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import postgres from 'postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
+async function deleteDatabase() {
+  await sql`
+    DROP TABLE IF EXISTS invoices;
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS customers;
+    DROP TABLE IF EXISTS revenue;
+  `;
+  return null
+}
 
 async function seedUsers() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -107,7 +117,8 @@ export async function GET() {
       seedUsers(),
       seedCustomers(),
       seedInvoices(),
-      seedRevenue(),
+      seedRevenue()
+      // deleteDatabase()
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
