@@ -86,3 +86,11 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export type TestDemoItem = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+}
