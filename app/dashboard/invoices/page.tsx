@@ -7,6 +7,14 @@ import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
 
 import { fetchInvoicesPages } from '@/app/lib/data';
+
+// 此配置会覆盖顶层seo配置
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: 'Invoices | Acme Dashboard',
+};
+// -----end
  
 export default async function Page(props: {
   searchParams?: Promise<{
